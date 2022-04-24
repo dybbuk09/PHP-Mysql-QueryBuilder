@@ -1,0 +1,26 @@
+{
+    "name": "hraw/dbqb",
+    "type": "library",
+    "description": "A lightweight mysql query builder for PHP",
+    "keywords": [
+        "query builder",
+        "database",
+        "mysql"
+      ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Harish Rawat",
+            "email": "dev.harishrawat@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hraw\\DBQB\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "ext-pdo": "*"
+    }
+}
