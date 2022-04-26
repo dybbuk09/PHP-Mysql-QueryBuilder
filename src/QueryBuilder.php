@@ -364,7 +364,7 @@ class QueryBuilder
     private function buildWhere(string $columnName, $operator, $value, $type)
     {
         if (is_string($operator)) {
-            if (!in_array($operator, $this->operators)) {
+            if (!in_array(strtolower($operator), $this->operators)) {
                 $value = $operator;
                 $operator = '=';
             }
@@ -520,7 +520,12 @@ class QueryBuilder
             $stmt = $this->connection->prepare($query);
             $stmt->execute($values);
         }
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        //Check if query type is select or not
+        if (strtolower(substr($query, 0, 6)) === 'select') {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return $stmt->rowCount();
     }
 
     /**

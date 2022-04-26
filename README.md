@@ -9,6 +9,8 @@ Query builder package to implement database queries easily in core PHP.
 composer require hraw/dbqb
 
 ## Implementation
+
+Example: filename -> index.php
 ```
 <?php
 
@@ -77,7 +79,7 @@ DB::table('users')
 Note:- batchInsert function does not return id of the inserted rows however insert function returns the id of the inserted row.
     
 //Nested conditions
-DB::table('users')->where('name', 'LIKE', '%jo%')
+DB::table('users')->where('name', 'like', '%jo%')
                   ->where(function($query){
                     $query->where('age', '>', 18)
                           ->orWhere('state_code', 'UK');
@@ -131,11 +133,22 @@ DB::table('users')
     ->get();
 ```
 
+## Transactions
+```
+DB::beginTransaction();
+try {
+    DB::table('users')->where('id', '<', 10)->delete();
+    DB::commit();
+} catch (\Exception $e) {
+    DB::rollBack();
+}
+```
+
 ## Multiple database connections
 ```
-    DB::connection('connection1Name')->all('tableName');
-    
-    DB::connection('connection2Name')->all('tableName');
+DB::connection('connection1Name')->all('tableName');
+
+DB::connection('connection2Name')->all('tableName');
 ```
 
 ## Supported methods
@@ -168,3 +181,7 @@ DB::table('users')
 * delete() //Delete record from database
 * update([values]) //values must be an associative array
 * having (Note:- All having methods are same as where methods)
+
+
+## Run Server
+php -S localhost:8000
