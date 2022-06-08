@@ -18,7 +18,7 @@ class PDOConnector
      * Create singleton instance of the class
      * @return PDOConnector|null
      */
-    public function make()
+    public static function make()
     {
         if (is_null(self::$instance)) {
             self::$instance = new static();
